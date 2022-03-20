@@ -65,19 +65,22 @@ public class LinkedStack<T> implements StackInterface<T>
          return data;
       } // end getData
       
-      private void setData(T newData)
-      {
-         data = newData;
-      } // end setData
+      
       
       private Node getNextNode()
       {
          return next;
       } // end getNextNode
       
+      /*private void setData(T newData)
+      {
+         data = newData;
+      } // end setData
+      
       private void setNextNode(Node nextNode)
       {
          next = nextNode;
-      } // end setNextNode
+      } // end setNextNode*/
+    
 	} // end Node
 }
