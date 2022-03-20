@@ -1,4 +1,4 @@
-package main.testing;
+package main.mainmethod;
 import java.util.Scanner;
 
 import main.implementations.LinkedStack;
