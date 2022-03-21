@@ -13,6 +13,7 @@ public class Calculator {
         Scanner scnr = new Scanner(System.in);
         String postfix;
         double result;
+        
         //get eqation from user
         System.out.println("Type in expression");
         String infix = scnr.nextLine();
@@ -141,7 +142,7 @@ public class Calculator {
         return valueStack.peek();
     }
 
-    private static double getResult(char character, double operandTwo, double operandOne){
+    public static double getResult(char character, double operandTwo, double operandOne){
         double result = 0.0;
         switch(character)
         {
