@@ -1,7 +1,6 @@
 /**
  * Class used to test additional methods added.
  * Uses JUnit 5 1.7.0
- * 
  * @author Adrian
  */
 
@@ -12,15 +11,9 @@ import org.junit.Test;
 
 public class CalculatorTest{
     
-    @Test
-    public void addsTwoNumbers(){ //
-        assertEquals(10, Calculator.getResult('+', 5, 5), 0.001); //two positive numbers 
-        assertEquals(6, Calculator.getResult('+', 10, -4), 0.001); //one negative and one positive     
-    }
-
     /**
-     * Method that checks for the postfix of given equations. 
-     * Assumes that all variables are single digit and in the correct order.
+     * Method that checks if calculated postfix expression is equal to actual. 
+     * Assumes that all variables are single digit and typed in the correct order.
      */
     @Test
     public void TestInfixToPostFix(){
@@ -34,7 +27,7 @@ public class CalculatorTest{
     }
 
     /**
-     * Method that evalueates a postfix equation.
+     * Method that checks if the calculated evalueation of a postfix equation is equal to actual.
      * Uses already tested expressions from testInfixToPostFix.
      * 
      */
@@ -48,8 +41,32 @@ public class CalculatorTest{
         assertEquals(-4826807, Calculator.evaluatePostFix("abcd-/e*d+e^-"), 0.001); //problem 3 given by the textbook
     }
 
+    /**
+     * Method that checks if the result given by getResult method is correct. 
+     */
     @Test
-    public void TestEponent(){
-        assertEquals(256, Calculator.getResult('^', 4, 4), 0.001);
+    public void TestGetResult(){
+        assertEquals(256, Calculator.getResult('^', 4, 4), 0.001); //test exponenet operand
+        assertEquals(8, Calculator.getResult('+', 6, 2), 0.001); //test addition operand with positive values
+        assertEquals(-4, Calculator.getResult('+', -6, 2), 0.001); //test addition operand with negative values
+        assertEquals(-3, Calculator.getResult('-', 5, 2), 0.001); //test subtraction operand
+        assertEquals(18, Calculator.getResult('*', 6, 3), 0.001); //test multiplication operand 
+        assertEquals(0.5, Calculator.getResult('/', 4, 2), 0.001); //test division operand 
+    }
+
+    /**
+     * Method that tests if getPriority method functions properly.
+     */
+    @Test
+    public void TestGetPriority(){
+
+    }
+
+    /**
+     * Method that tests if getValue method functions properly
+     */
+    @Test
+    public void TestGetValue(){
+
     }
 }
