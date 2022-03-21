@@ -5,6 +5,6 @@ Corey
 
 Contributions:  
   
-Javadoc: https://epiccoderz-cs2400.github.io/Project-2-Stacks/
+Javadoc: https://epiccoderz-cs2400.github.io/Project-2-Stacks/  
 Screencast: <insert link>
 
