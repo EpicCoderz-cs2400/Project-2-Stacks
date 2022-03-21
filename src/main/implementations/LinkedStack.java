@@ -1,6 +1,5 @@
 package main.implementations;
 import java.util.EmptyStackException;
-
 import main.interfaces.StackInterface;
 
 public class LinkedStack<T> implements StackInterface<T>
