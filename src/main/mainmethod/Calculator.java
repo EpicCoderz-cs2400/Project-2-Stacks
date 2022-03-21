@@ -8,7 +8,6 @@ import main.interfaces.StackInterface;
 
 public class Calculator {
     
-
     public static void main(String[] args){
         Scanner scnr = new Scanner(System.in);
         String postfix;
@@ -30,8 +29,11 @@ public class Calculator {
 
     } //end main method
 
-
-    // Converts an infix expression to an equivalent postfix expression.
+    /**
+     * Converts an infix expression to an equivalent postfix expression.
+     * @param infix expression as a String.
+     * @return The postfix expression of type String.
+     */
     public static String convertToPostfix(String infix){
 
         StackInterface<Character> operatorStack = new LinkedStack<>(); //new empty Linked stack
@@ -115,8 +117,13 @@ public class Calculator {
         return -1;
     } // end getPrecedence
 
+    /**
+     * Evaluates a postfix expression.
+     * @param infix expression as a String.
+     * @return result of evaulation as type float.
+     */
     public static double evaluatePostFix(String postfix){
-        // Evaluates a postfix expression.
+
         StackInterface<Double> valueStack = new ResizeableArrayStack<>(); //new empty Linked stack
         double result= 0;
         for (int i =0; i<postfix.length(); ++i)
@@ -159,9 +166,7 @@ public class Calculator {
                 result = operandOne / operandTwo;
                 break;
             case '^':
-                for (int i = (int) operandTwo; i != 0; --i) {
-                    result *= operandOne;
-                  }
+                result = Math.pow(operandOne, operandTwo);
                 break;
         }
         return result;
