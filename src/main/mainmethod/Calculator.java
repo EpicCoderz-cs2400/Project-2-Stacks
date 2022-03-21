@@ -2,6 +2,7 @@ package main.mainmethod;
 import java.util.Scanner;
 
 import main.implementations.LinkedStack;
+import main.implementations.ResizeableArrayStack;
 import main.interfaces.StackInterface;
 
 public class Calculator {
@@ -10,6 +11,7 @@ public class Calculator {
     public static void main(String[] args){
         Scanner scnr = new Scanner(System.in);
         String postfix;
+        double result;
         //get eqation from user
         System.out.println("Type in expression");
         String infix = scnr.nextLine();
@@ -18,16 +20,19 @@ public class Calculator {
         postfix = convertToPostfix(infix);
         System.out.println(postfix);
         
-        //evaluating
-        
+        //evaluating and printing answer
+        result = evaluatePostFix(postfix);
+        System.out.println("The result is: " + result);
+
         scnr.close(); //close scanner
 
     } //end main method
 
+
     // Converts an infix expression to an equivalent postfix expression.
     public static String convertToPostfix(String infix){
 
-        StackInterface<Character> operatorStack = new LinkedStack<>(); //new empty stack
+        StackInterface<Character> operatorStack = new LinkedStack<>(); //new empty Linked stack
         String postfix = ""; //new empty String
         char topOperator;
 
@@ -107,5 +112,80 @@ public class Calculator {
         } // end switch
         return -1;
     } // end getPrecedence
+
+    public static double evaluatePostFix(String postfix){
+        // Evaluates a postfix expression.
+        StackInterface<Double> valueStack = new ResizeableArrayStack<>(); //new empty Linked stack
+        double result= 0;
+        for (int i =0; i<postfix.length(); ++i)
+        {
+            char character = postfix.charAt(i);
+
+            if(Character.isLetter(character))
+                valueStack.push(getValue(character));
+            else{
+                switch (character)
+                {
+                    case '+' : case '-' : case '*' : case '/' : case '^' :
+                        double operandTwo = valueStack.pop();
+                        double operandOne = valueStack.pop();
+                        result = getResult(character, operandTwo, operandOne);
+                        valueStack.push(result);
+                        break;
+                    default: 
+                        break; // Ignore unexpected characters
+                }
+            }
+        }
+        return valueStack.peek();
+    }
+
+    private static double getResult(char character, double operandTwo, double operandOne){
+        double result = 0.0;
+        switch(character)
+        {
+            case '+': 
+                result = operandOne + operandTwo;
+                break;
+            case '-': 
+                result = operandOne - operandTwo;
+                break;
+            case '*':
+                result = operandOne * operandTwo;
+                break;
+            case '/': 
+                result = operandOne / operandTwo;
+                break;
+            case '^':
+                for (int i = (int) operandTwo; i != 0; --i) {
+                    result *= operandOne;
+                  }
+                break;
+        }
+        return result;
+    }
+
+    private static double getValue(char operator){
+        double value = 0;
+        switch (operator){
+            case 'a':
+                value = 2;
+                break;
+            case 'b':
+                value = 3;
+                break;
+            case 'c':
+                value = 4;
+                break;
+            case 'd':
+                value = 5;
+                break;
+            case 'e':
+                value = 6;
+                break;
+        }
+        return value;
+    }
+
 
 }
