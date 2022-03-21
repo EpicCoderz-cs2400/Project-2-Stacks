@@ -7,7 +7,10 @@ import main.interfaces.StackInterface;
 public class LinkedStack<T> implements StackInterface<T>
 {
     private Node topNode;
-
+    
+    /**
+     * Initializes an empty stack.
+     */
     public LinkedStack()
     {
         topNode = null;

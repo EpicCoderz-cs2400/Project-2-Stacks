@@ -5,7 +5,6 @@
 
 package main.mainmethod;
 import java.util.Scanner;
-
 import main.implementations.LinkedStack;
 import main.implementations.ResizeableArrayStack;
 import main.interfaces.StackInterface;
@@ -13,33 +12,32 @@ import main.interfaces.StackInterface;
 
 public class Calculator {
     /**
-     * Main method that takes expression from user and turns it into postfix, then evaluates it. 
+     * Main method that takes infix expression from user and turns it into equivilant postfix and then evaluates it. 
      */
     public static void main(String[] args){
         Scanner scnr = new Scanner(System.in);
-        String postfix;
-        double result;
+        String postfix; //equivilant postfix equation
+        double result; //the postfix expression evaluated
         
-        //get eqation from user
+        //get infix equation from user
         System.out.println("Type in expression");
         String infix = scnr.nextLine();
 
         //converting to postfix 
-        postfix = convertToPostfix(infix);
+        postfix = convertToPostfix(infix); //calls method to convert
         System.out.println(postfix);
         
         //evaluating and printing answer
-        result = evaluatePostFix(postfix);
+        result = evaluatePostFix(postfix); //calls method to evaluate
         System.out.println("The result is: " + result);
 
-        scnr.close(); //close scanner
-
+        scnr.close();
     } //end main method
 
     /**
      * Converts an infix expression to an equivalent postfix expression.
-     * @param infix expression as a String.
-     * @return The postfix expression as a String.
+     * @param infix The expression given by the user as a String.
+     * @return equivilant postfix expression as a String.
      */
     public static String convertToPostfix(String infix){
 
@@ -47,34 +45,34 @@ public class Calculator {
         String postfix = ""; //new empty String
         char topOperator;
 
-        for(int i = 0; i<infix.length(); ++i) //(curCar !=null)
+        for(int i = 0; i<infix.length(); ++i) //traverses infix
         {
             //get current character
             char character = infix.charAt(i);
             
             //if character is a variable
             if(Character.isLetter(character))
-                postfix = postfix + character;
+                postfix = postfix + character; //adds to postfix
             else{ //if not variable
                 
                 switch (character)
                 {
-                    //exponent
                     case '^' :
                         operatorStack.push(character);
                         break;
                     case '+' : case '-' : case '*' : case '/' :
-                        while (!operatorStack.isEmpty())//and precedence of nextCharacter <= precedence of operatorStack.peek()
+                        while (!operatorStack.isEmpty())
                         {
                             topOperator = operatorStack.peek();
-                            if(getPrecedence(character) <= getPrecedence(topOperator)){
+                            //if the operator has lower priority then top of the stack
+                            if(getPriority(character) <= getPriority(topOperator)){
                                 postfix = postfix + topOperator;
                                 operatorStack.pop();
                             }
                             else{
                                 break;
                             }
-                        }//end while-loop
+                        }
                         operatorStack.push(character);
                         break;
                     case '(' : 
@@ -90,8 +88,8 @@ public class Calculator {
                         break;
                     default:
                         break; // If is blank or not an operator
-                }//end switch
-            }//end else 
+                }
+            }
         }
 
         while (!operatorStack.isEmpty()) //adding to the postfix string
@@ -107,18 +105,19 @@ public class Calculator {
 
     /**
      * Evaluates a postfix expression.
-     * @param infix expression as a String.
-     * @return result of evaulation as type float.
+     * @param postfix expression as a String.
+     * @return float result of the evaulation.
      */
     public static double evaluatePostFix(String postfix){
 
-        StackInterface<Double> valueStack = new ResizeableArrayStack<>(); //new empty Linked stack
+        StackInterface<Double> valueStack = new ResizeableArrayStack<>(); //new empty ResizableArray stack
         double result= 0;
-        for (int i =0; i<postfix.length(); ++i)
+        
+        for (int i =0; i<postfix.length(); ++i) 
         {
             char character = postfix.charAt(i);
 
-            if(Character.isLetter(character))
+            if(Character.isLetter(character))//if character is varaible get assigned value
                 valueStack.push(getValue(character));
             else{
                 switch (character)
@@ -126,7 +125,7 @@ public class Calculator {
                     case '+' : case '-' : case '*' : case '/' : case '^' :
                         double operandTwo = valueStack.pop();
                         double operandOne = valueStack.pop();
-                        result = getResult(character, operandTwo, operandOne);
+                        result = getResult(character, operandTwo, operandOne); //perform opertion between two operands
                         valueStack.push(result);
                         break;
                     default: 
@@ -134,15 +133,16 @@ public class Calculator {
                 }
             }
         }
+        //return the result
         return valueStack.peek();
     }
     
     /**
-     * Returns the priority of an operator.
-     * @param operator an operator in the expression 
-     * @return integer that shows prority. The Lower the more priority it has.
+     * Returns the mathematical priority of an operator.
+     * @param operator in the expression. 
+     * @return integer that assigns prority. The higher, the more higer precedence it has it has.
      */
-    private static int getPrecedence (char operator)
+    private static int getPriority (char operator)
     {
         switch (operator)
         {
@@ -159,14 +159,14 @@ public class Calculator {
                 return 3;
         } // end switch
         return -1;
-    } // end getPrecedence
+    } // end
 
     /**
-     * 
+     * Gets the result of the operation between two operands using the operator.
      * @param character The operator.
      * @param operandTwo The second operand.
      * @param operandOne The first operand.
-     * @return the result of the operation between operandOne and Two using the operator.
+     * @return the result of the operation.
      */
     public static double getResult(char character, double operandTwo, double operandOne){
         double result = 0.0;
@@ -192,7 +192,7 @@ public class Calculator {
     }
 
     /**
-     * 
+     * Gets the value assigned to a variable. 
      * @param operator The current variable.
      * @return The value assigned to the variable.
      */
