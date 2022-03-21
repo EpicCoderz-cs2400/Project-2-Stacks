@@ -1,3 +1,8 @@
+/**
+ * Class that contains main method that tests added methods.
+ * @author Adrian 
+ */
+
 package main.mainmethod;
 import java.util.Scanner;
 
@@ -7,7 +12,9 @@ import main.interfaces.StackInterface;
 
 
 public class Calculator {
-    
+    /**
+     * Main method that takes expression from user and turns it into postfix, then evaluates it. 
+     */
     public static void main(String[] args){
         Scanner scnr = new Scanner(System.in);
         String postfix;
@@ -32,7 +39,7 @@ public class Calculator {
     /**
      * Converts an infix expression to an equivalent postfix expression.
      * @param infix expression as a String.
-     * @return The postfix expression of type String.
+     * @return The postfix expression as a String.
      */
     public static String convertToPostfix(String infix){
 
@@ -67,13 +74,13 @@ public class Calculator {
                             else{
                                 break;
                             }
-                        }//endwhile
+                        }//end while-loop
                         operatorStack.push(character);
                         break;
                     case '(' : 
                         operatorStack.push(character);
                         break;
-                    case ')' : // Stack is not empty if infix expression is valid
+                    case ')' : 
                         topOperator = operatorStack.pop();
                         while (topOperator != '(')
                         {
@@ -82,12 +89,12 @@ public class Calculator {
                         }//end while
                         break;
                     default:
-                        break; // Ignore unexpected characters
+                        break; // If is blank or not an operator
                 }//end switch
             }//end else 
         }
 
-        while (!operatorStack.isEmpty())
+        while (!operatorStack.isEmpty()) //adding to the postfix string
         {
             topOperator = operatorStack.pop();
             postfix = postfix + topOperator;
@@ -97,25 +104,6 @@ public class Calculator {
         return postfix;
   
     }
-
-    private static int getPrecedence (char operator)
-    {
-        switch (operator)
-        {
-            case '(':
-            case ')':
-                return 0;
-            case '+':
-            case '-':
-                return 1;
-            case '*':
-            case '/':
-                return 2;
-            case '^':
-                return 3;
-        } // end switch
-        return -1;
-    } // end getPrecedence
 
     /**
      * Evaluates a postfix expression.
@@ -148,7 +136,38 @@ public class Calculator {
         }
         return valueStack.peek();
     }
+    
+    /**
+     * Returns the priority of an operator.
+     * @param operator an operator in the expression 
+     * @return integer that shows prority. The Lower the more priority it has.
+     */
+    private static int getPrecedence (char operator)
+    {
+        switch (operator)
+        {
+            case '(':
+            case ')':
+                return 0;
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+        } // end switch
+        return -1;
+    } // end getPrecedence
 
+    /**
+     * 
+     * @param character The operator.
+     * @param operandTwo The second operand.
+     * @param operandOne The first operand.
+     * @return the result of the operation between operandOne and Two using the operator.
+     */
     public static double getResult(char character, double operandTwo, double operandOne){
         double result = 0.0;
         switch(character)
@@ -172,6 +191,11 @@ public class Calculator {
         return result;
     }
 
+    /**
+     * 
+     * @param operator The current variable.
+     * @return The value assigned to the variable.
+     */
     private static double getValue(char operator){
         double value = 0;
         switch (operator){
