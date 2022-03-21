@@ -92,7 +92,7 @@ public class Calculator {
             }
         }
 
-        while (!operatorStack.isEmpty()) //adding to the postfix string
+        while (!operatorStack.isEmpty()) //adding reamining to the postfix string
         {
             topOperator = operatorStack.pop();
             postfix = postfix + topOperator;
