@@ -5,7 +5,7 @@ Michael Smith
 
 Contributions:  
 Adrian: Created evaulatePostFix method and Calculator class. Created javadoc. Created Test class with JUnit framework. Helped with Excel.      
-Corey: Created convertToPostfix method. Helped with testing class.    
+Corey: Created convertToPostfix method. Helped with adding test cases.     
 Michael: Helped with javadoc, excel file, and edited screencast. Cleaned up code.  
 
   
