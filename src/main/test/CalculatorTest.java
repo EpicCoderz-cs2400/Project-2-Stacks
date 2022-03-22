@@ -13,7 +13,7 @@ public class CalculatorTest{
     
     /**
      * Method that checks if calculated postfix expression is equal to actual. 
-     * Assumes that all variables are single digit and typed in the correct order.
+     * Assumes that all variables are single digit and operators are typed in the correct order.
      */
     @Test
     public void TestInfixToPostFix(){
@@ -24,6 +24,9 @@ public class CalculatorTest{
         assertEquals("abc-/d*", Calculator.convertToPostfix("a/(b-c)*d")); //problem 2 given by the textbook 
         assertEquals("abcd-/e*d+e^-", Calculator.convertToPostfix("a-(b/(c-d)*e+d)^e")); //problem 3 given by the textbook
         assertEquals("abc*-def^*g*h+/", Calculator.convertToPostfix("(a-b*c)/(d*e^f*g+h)")); //problem 4 given by the textbook
+        assertEquals("abc+*c-d+e*", Calculator.convertToPostfix("((((a*(b+c))-c)+d)*e)")); //more complex expreesion filled with paranthesis
+        assertEquals("ab+c+d+", Calculator.convertToPostfix("a+b+c+d")); //only adding
+        assertEquals("ab-c+dea*+*", Calculator.convertToPostfix("(a-b+c)*(d+e*a)")); //
     }
 
     /**
@@ -54,19 +57,4 @@ public class CalculatorTest{
         assertEquals(0.5, Calculator.getResult('/', 4, 2), 0.001); //test division operand 
     }
 
-    /**
-     * Method that tests if getPriority method functions properly.
-     */
-    @Test
-    public void TestGetPriority(){
-
-    }
-
-    /**
-     * Method that tests if getValue method functions properly
-     */
-    @Test
-    public void TestGetValue(){
-
-    }
 }
